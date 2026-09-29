@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MEDTRUST AI | Choose Access</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .access-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(91, 192, 190, 0.12), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(155, 135, 212, 0.12), transparent 30%),
+                var(--ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .access-container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .access-logo {
+            display: inline-block;
+            color: var(--midnight);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 45px;
+        }
+
+        .access-heading {
+            font-family: "Space Grotesk", sans-serif;
+            color: var(--midnight);
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.05;
+            margin: 0 0 18px;
+            letter-spacing: -2px;
+        }
+
+        .access-heading span {
+            color: var(--teal);
+        }
+
+        .access-subtitle {
+            max-width: 580px;
+            margin: 0 auto 50px;
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .access-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            text-align: left;
+        }
+
+        .access-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(16, 24, 32, 0.09);
+            border-radius: 24px;
+            padding: 34px;
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease,
+                        border-color 0.25s ease;
+            box-shadow: 0 12px 35px rgba(16, 24, 32, 0.06);
+        }
+
+        .access-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(16, 24, 32, 0.11);
+            border-color: rgba(8, 126, 139, 0.35);
+        }
+
+        .access-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .user-icon {
+            background: rgba(91, 192, 190, 0.15);
+        }
+
+        .admin-icon {
+            background: rgba(155, 135, 212, 0.15);
+        }
+
+        .access-card h2 {
+            font-family: "Space Grotesk", sans-serif;
+            color: var(--midnight);
+            font-size: 25px;
+            margin: 0 0 12px;
+        }
+
+        .access-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.65;
+            margin: 0 0 25px;
+        }
+
+        .access-link {
+            color: var(--teal);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .admin-card .access-link {
+            color: #705fc0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 38px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--midnight);
+        }
+
+        @media (max-width: 700px) {
+            .access-options {
+                grid-template-columns: 1fr;
+            }
+
+            .access-heading {
+                letter-spacing: -1px;
+            }
+
+            .access-card {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="access-page">
+
+        <div class="access-container">
+
+            <div class="access-logo">
+                MEDTRUST AI
+            </div>
+
+            <p class="eyebrow">SECURE ACCESS</p>
+
+            <h1 class="access-heading">
+                Who are you <span>entering as?</span>
+            </h1>
+
+            <p class="access-subtitle">
+                Choose your access level to continue to the MEDTRUST AI
+                healthcare AI safety platform.
+            </p>
+
+            <div class="access-options">
+
+                <!-- USER -->
+                <a href="/user-login" class="access-card">
+
+                    <div class="access-icon user-icon">
+                        👤
+                    </div>
+
+                    <h2>User Access</h2>
+
+                    <p>
+                        Analyze AI-generated healthcare responses,
+                        check evidence, review safety scores, and
+                        track your verification history.
+                    </p>
+
+                    <span class="access-link">
+                        Continue as User →
+                    </span>
+
+                </a>
+
+
+                <!-- ADMIN -->
+                <a href="/admin-login" class="access-card admin-card">
+
+                    <div class="access-icon admin-icon">
+                        🛡️
+                    </div>
+
+                    <h2>Admin Access</h2>
+
+                    <p>
+                        Review flagged claims, validate corrections,
+                        manage trusted evidence, and monitor system
+                        safety analytics.
+                    </p>
+
+                    <span class="access-link">
+                        Continue as Admin →
+                    </span>
+
+                </a>
+
+            </div>
+
+            <a href="/" class="back-link">
+                ← Back to MEDTRUST AI
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

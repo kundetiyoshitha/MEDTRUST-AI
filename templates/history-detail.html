@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Analysis Details | MEDTRUST AI</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/responsive.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="dashboard-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                M
+            </div>
+
+            <div>
+
+                <h2>
+                    MEDTRUST
+                </h2>
+
+                <span>
+                    AI SAFETY
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="/user-dashboard"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#analyzer-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">◉</span>
+                <span>Analyze Response</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#evidence-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">◇</span>
+                <span>Evidence</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#learning-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">↗</span>
+                <span>Learning</span>
+            </a>
+
+
+            <a
+                href="/history"
+                class="nav-item active"
+            >
+                <span class="nav-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#settings-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Safety Engine
+                    </strong>
+
+                    <small>
+                        Online
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="/access"
+                class="logout-link"
+            >
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    MEDTRUST AI
+                </p>
+
+                <h1>
+                    Analysis Details
+                </h1>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    U
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Demo User
+                    </strong>
+
+                    <span>
+                        Healthcare AI User
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="detail-page">
+
+
+            <a
+                href="/history"
+                class="detail-back"
+            >
+                ← Back to Analysis History
+            </a>
+
+
+            <div id="detailContent">
+
+                <div class="history-loading">
+                    Loading analysis details...
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <strong>
+                    MEDTRUST AI
+                </strong>
+
+                <span>
+                    — Trust Before You Trust AI.
+                </span>
+
+            </div>
+
+            <span>
+                Healthcare AI Safety Platform
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const analysisId =
+    {{ analysis_id|tojson }};
+
+
+async function loadAnalysis() {
+
+    const container =
+        document.getElementById(
+            "detailContent"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/history/${analysisId}`
+            );
+
+
+        if (!response.ok) {
+            throw new Error(
+                "Analysis not found"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            throw new Error(
+                data.error ||
+                "Unable to load analysis"
+            );
+        }
+
+
+        renderAnalysis(
+            data.analysis,
+            data.claims || []
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        container.innerHTML = `
+
+            <div class="detail-original">
+
+                <h2>
+                    Unable to load analysis
+                </h2>
+
+                <p class="original-response">
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+function renderAnalysis(
+    analysis,
+    claims
+) {
+
+    const container =
+        document.getElementById(
+            "detailContent"
+        );
+
+
+    const status =
+        analysis.overall_status ||
+        "UNKNOWN";
+
+
+    container.innerHTML = `
+
+        <div class="detail-header">
+
+            <div>
+
+                <h1>
+                    Analysis #${analysis.analysis_id}
+                </h1>
+
+                <div class="detail-date">
+                    ${escapeHtml(
+                        formatDate(
+                            analysis.created_at
+                        )
+                    )}
+                </div>
+
+            </div>
+
+            <span
+                class="status-badge ${getStatusClass(status)}"
+            >
+                ${escapeHtml(status)}
+            </span>
+
+        </div>
+
+
+        <div class="detail-summary">
+
+            ${stat(
+                "Safety Score",
+                analysis.safety_score !== null
+                    ? analysis.safety_score + "/100"
+                    : "—"
+            )}
+
+            ${stat(
+                "Claims",
+                analysis.total_claims || 0
+            )}
+
+            ${stat(
+                "Supported",
+                analysis.supported_claims || 0
+            )}
+
+            ${stat(
+                "Uncertain",
+                analysis.uncertain_claims || 0
+            )}
+
+            ${stat(
+                "Contradicted",
+                analysis.contradicted_claims || 0
+            )}
+
+        </div>
+
+
+        <div class="detail-original">
+
+            <h2>
+                Original AI Response
+            </h2>
+
+            <div class="original-response">
+                ${escapeHtml(
+                    analysis.original_response
+                )}
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="detail-original">
+
+                <h2>
+                    Claim-Level Verification
+                </h2>
+
+                <p class="detail-claim-text">
+                    Each claim is reviewed against available
+                    evidence and assigned a risk level.
+                </p>
+
+            </div>
+
+
+            ${
+                claims.length
+                    ? claims.map(
+                        renderClaim
+                    ).join("")
+                    : `
+                        <div class="detail-original">
+                            <p class="original-response">
+                                No claim details were stored.
+                            </p>
+                        </div>
+                    `
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+function stat(
+    label,
+    value
+) {
+
+    return `
+
+        <div class="detail-stat">
+
+            <span>
+                ${label}
+            </span>
+
+            <strong>
+                ${escapeHtml(value)}
+            </strong>
+
+        </div>
+
+    `;
+
+}
+
+
+function renderClaim(claim) {
+
+    const evidence =
+        claim.evidence || [];
+
+
+    return `
+
+        <article class="detail-claim">
+
+            <div class="detail-claim-top">
+
+                <div>
+
+                    <h3>
+                        Claim ${claim.claim_number}
+                    </h3>
+
+                    <div class="detail-claim-text">
+                        ${escapeHtml(
+                            claim.claim_text
+                        )}
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="status-badge ${getClaimClass(
+                        claim.verification_status
+                    )}"
+                >
+                    ${escapeHtml(
+                        claim.verification_status ||
+                        "UNKNOWN"
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-claim-meta">
+
+                <span class="status-badge status-review">
+                    Confidence:
+                    ${claim.verification_confidence ?? "—"}%
+                </span>
+
+                <span class="status-badge ${getRiskClass(
+                    claim.risk_level
+                )}">
+                    Risk:
+                    ${escapeHtml(
+                        claim.risk_level ||
+                        "UNKNOWN"
+                    )}
+                </span>
+
+                <span class="status-badge status-review">
+                    ${escapeHtml(
+                        claim.mitigation_action ||
+                        "REVIEW"
+                    )}
+                </span>
+
+            </div>
+
+
+            ${
+                claim.verification_reason
+                    ? `
+                        <div
+                            class="evidence-item"
+                            style="margin-top:15px;"
+                        >
+
+                            <strong>
+                                Verification Reason
+                            </strong>
+
+                            <p>
+                                ${escapeHtml(
+                                    claim.verification_reason
+                                )}
+                            </p>
+
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            ${
+                evidence.length
+                    ? `
+
+                        <div class="evidence-list">
+
+                            ${evidence.map(
+                                item => `
+
+                                    <div class="evidence-item">
+
+                                        <strong>
+                                            ${
+                                                item.source ||
+                                                "Evidence Source"
+                                            }
+                                        </strong>
+
+                                        <p>
+                                            ${escapeHtml(
+                                                item.evidence_text ||
+                                                "No evidence text available."
+                                            )}
+                                        </p>
+
+                                        ${
+                                            item.strength
+                                                ? `
+                                                    <p style="margin-top:7px;">
+                                                        Strength:
+                                                        ${escapeHtml(
+                                                            item.strength
+                                                        )}
+                                                    </p>
+                                                `
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                `
+                            ).join("")}
+
+                        </div>
+
+                    `
+                    : `
+                        <div
+                            class="evidence-item"
+                            style="margin-top:15px;"
+                        >
+                            <strong>
+                                Evidence
+                            </strong>
+
+                            <p>
+                                No evidence record was stored
+                                for this claim.
+                            </p>
+                        </div>
+                    `
+            }
+
+        </article>
+
+    `;
+
+}
+
+
+function getStatusClass(status) {
+
+    const value =
+        String(status || "")
+            .toUpperCase();
+
+
+    if (
+        value === "SUPPORTED"
+    ) {
+        return "status-supported";
+    }
+
+
+    if (
+        value.includes("RISK") ||
+        value.includes("HALLUCINATION") ||
+        value.includes("CRITICAL")
+    ) {
+        return "status-risk";
+    }
+
+
+    return "status-review";
+
+}
+
+
+function getClaimClass(status) {
+
+    return getStatusClass(status);
+
+}
+
+
+function getRiskClass(level) {
+
+    const value =
+        String(level || "")
+            .toUpperCase();
+
+
+    if (
+        value === "HIGH" ||
+        value === "CRITICAL"
+    ) {
+        return "status-risk";
+    }
+
+
+    if (
+        value === "MODERATE"
+    ) {
+        return "status-review";
+    }
+
+
+    return "status-supported";
+
+}
+
+
+function formatDate(value) {
+
+    if (!value) {
+        return "Date unavailable";
+    }
+
+
+    const date =
+        new Date(
+            value.replace(" ", "T")
+        );
+
+
+    if (isNaN(date.getTime())) {
+        return value;
+    }
+
+
+    return date.toLocaleString(
+        undefined,
+        {
+            dateStyle: "medium",
+            timeStyle: "short"
+        }
+    );
+
+}
+
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value ?? "");
+
+    return div.innerHTML;
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadAnalysis
+);
+
+</script>
+
+</body>
+</html>

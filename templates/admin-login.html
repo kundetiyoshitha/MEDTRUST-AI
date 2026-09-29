@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | MEDTRUST AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(155, 135, 212, 0.14), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(8, 126, 139, 0.14), transparent 30%),
+                #101820;
+        }
+
+        .login-page {
+            width: 100%;
+            max-width: 460px;
+            padding: 24px;
+        }
+
+        .login-card {
+            background: rgba(247, 243, 234, 0.98);
+            border-radius: 24px;
+            padding: 42px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .login-logo {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #101820;
+            margin-bottom: 8px;
+        }
+
+        .login-logo span {
+            color: #9B87D4;
+        }
+
+        .login-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7b68b2;
+            margin-bottom: 10px;
+        }
+
+        .login-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 32px;
+            color: #101820;
+            margin: 0 0 8px;
+        }
+
+        .login-description {
+            color: #5e6670;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #101820;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 15px;
+            border: 1px solid #d8d4cb;
+            border-radius: 12px;
+            background: white;
+            color: #101820;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #9B87D4;
+            box-shadow: 0 0 0 3px rgba(155, 135, 212, 0.14);
+        }
+
+        .login-button {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            background: #9B87D4;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(155, 135, 212, 0.25);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #7b68b2;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .admin-account {
+            margin-top: 24px;
+            padding: 14px;
+            border-radius: 12px;
+            background: rgba(155, 135, 212, 0.09);
+            font-size: 13px;
+            color: #5e6670;
+        }
+
+        .admin-account strong {
+            color: #101820;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                MEDTRUST <span>AI</span>
+            </div>
+
+            <span class="login-label">Safety Administration</span>
+
+            <h1 class="login-title">Admin Console</h1>
+
+            <p class="login-description">
+                Access the MEDTRUST safety control center to review
+                flagged claims, evidence, and validated learning.
+            </p>
+
+            <form action="/admin-dashboard" method="GET">
+
+                <div class="form-group">
+                    <label for="admin-email">Admin Email</label>
+
+                    <input
+                        type="email"
+                        id="admin-email"
+                        name="email"
+                        placeholder="Enter admin email"
+                        list="admin-email-list"
+                        autocomplete="username"
+                        required
+                    >
+
+                    <datalist id="admin-email-list">
+                        <option value="jiminah2412@gmail.com">
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+
+                    <input
+                        type="password"
+                        id="admin-password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    Enter Safety Console
+                </button>
+
+            </form>
+
+            <div class="admin-account">
+                <strong>Admin account:</strong><br>
+                jiminah2412@gmail.com
+            </div>
+
+            <a href="/access" class="back-link">
+                ← Back to Access Selection
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

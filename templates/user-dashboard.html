@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MEDTRUST AI — User Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/responsive.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-mark">M</div>
+
+            <div>
+                <h2>MEDTRUST</h2>
+                <span>AI SAFETY</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/user-dashboard" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/user-dashboard#analyzer-section" class="nav-item">
+                <span class="nav-icon">◉</span>
+                <span>Analyze Response</span>
+            </a>
+
+            <a href="/user-dashboard#evidence-section" class="nav-item">
+                <span class="nav-icon">◇</span>
+                <span>Evidence</span>
+            </a>
+
+            <a href="/user-dashboard#learning-section" class="nav-item">
+                <span class="nav-icon">↗</span>
+                <span>Learning</span>
+            </a>
+
+            <!-- REAL HISTORY PAGE -->
+            <a href="/history" class="nav-item">
+                <span class="nav-icon">◷</span>
+                <span>History</span>
+            </a>
+
+            <a href="/user-dashboard#settings-section" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>Safety Engine</strong>
+                    <small>Online</small>
+                </div>
+            </div>
+
+            <a href="/access" class="logout-link">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="dashboard-main">
+
+        <!-- TOP BAR -->
+
+        <header class="dashboard-topbar">
+
+            <div>
+                <p class="eyebrow">MEDTRUST AI</p>
+                <h1>User Dashboard</h1>
+            </div>
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong>Demo User</strong>
+                    <span>Healthcare AI User</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="dashboard-hero">
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+                    AI SAFETY LAYER
+                </span>
+
+                <h2>
+                    Trust before you
+                    <span>trust AI.</span>
+                </h2>
+
+                <p>
+                    Analyze healthcare AI responses for unsupported claims,
+                    contradictions, uncertainty and high-risk medical statements.
+                </p>
+
+                <div class="hero-process">
+
+                    <div class="process-mini">
+                        <span>01</span>
+                        <strong>Detect</strong>
+                    </div>
+
+                    <div class="process-line"></div>
+
+                    <div class="process-mini">
+                        <span>02</span>
+                        <strong>Verify</strong>
+                    </div>
+
+                    <div class="process-line"></div>
+
+                    <div class="process-mini">
+                        <span>03</span>
+                        <strong>Assess</strong>
+                    </div>
+
+                    <div class="process-line"></div>
+
+                    <div class="process-mini">
+                        <span>04</span>
+                        <strong>Mitigate</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-score-card">
+
+                <div class="score-label">
+                    SAFETY ENGINE
+                </div>
+
+                <div class="score-circle">
+                    <strong>AI</strong>
+                </div>
+
+                <p>
+                    Evidence-guided<br>
+                    verification
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANALYZER ================= -->
+
+        <section id="analyzer-section" class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        ANALYSIS ENGINE
+                    </span>
+
+                    <h2>
+                        Analyze an AI response
+                    </h2>
+
+                    <p>
+                        Paste a healthcare AI response below.
+                        MEDTRUST AI will extract claims, retrieve evidence,
+                        verify them and assess safety risk.
+                    </p>
+
+                </div>
+
+                <div class="engine-status">
+
+                    <span class="status-dot"></span>
+
+                    Engine Ready
+
+                </div>
+
+            </div>
+
+
+            <div class="analyzer-card">
+
+                <label for="aiResponse">
+                    Healthcare AI Response
+                </label>
+
+                <textarea
+                    id="aiResponse"
+                    rows="9"
+                    placeholder="Paste the healthcare AI-generated response here..."></textarea>
+
+
+                <div class="analyzer-tools">
+
+                    <div class="input-tools">
+
+                        <button
+                            type="button"
+                            class="tool-button"
+                            id="voiceButton">
+                            🎙 Voice
+                        </button>
+
+                        <button
+                            type="button"
+                            class="tool-button"
+                            id="cameraButton">
+                            📷 Camera
+                        </button>
+
+                        <button
+                            type="button"
+                            class="tool-button"
+                            id="uploadButton">
+                            ↑ Upload
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="analyzeButton">
+
+                        Analyze Response
+
+                        <span>→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANALYSIS RESULTS ================= -->
+
+        <section
+            id="analysisResults"
+            class="dashboard-section results-section"
+            style="display: none;">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        VERIFICATION RESULT
+                    </span>
+
+                    <h2>
+                        Safety analysis
+                    </h2>
+
+                    <p>
+                        Claim-level verification and risk assessment.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT SUMMARY -->
+
+            <div class="result-summary-grid">
+
+                <div class="result-summary-card">
+
+                    <span>Overall Status</span>
+
+                    <strong id="overallStatus">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="result-summary-card">
+
+                    <span>Safety Score</span>
+
+                    <strong id="safetyScore">
+                        —
+                    </strong>
+
+                    <small>/ 100</small>
+
+                </div>
+
+
+                <div class="result-summary-card">
+
+                    <span>Total Claims</span>
+
+                    <strong id="totalClaims">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="result-summary-card">
+
+                    <span>Supported</span>
+
+                    <strong id="supportedClaims">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="result-summary-card">
+
+                    <span>Needs Attention</span>
+
+                    <strong id="attentionClaims">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CLAIMS -->
+
+            <div class="claims-card">
+
+                <div class="claims-card-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            CLAIM-LEVEL ANALYSIS
+                        </span>
+
+                        <h3>
+                            Verification breakdown
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="claimsList"
+                    class="claims-list">
+
+                    <!-- analyzer.js inserts results here -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EVIDENCE ================= -->
+        <!-- ================= EVIDENCE ================= -->
+
+<section
+    id="evidence-section"
+    class="dashboard-section">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-kicker">
+                EVIDENCE
+            </span>
+
+            <h2>
+                Trusted Evidence
+            </h2>
+
+            <p>
+                Review the medical evidence MEDTRUST AI used
+                to verify the claims in your latest analysis.
+            </p>
+        </div>
+
+        <div class="engine-status">
+            <span class="status-dot"></span>
+            Evidence engine ready
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         EVIDENCE EMPTY STATE
+         ===================================================== -->
+
+    <div
+        id="evidenceEmpty"
+        class="feature-card"
+        style="
+            display: block;
+            min-height: 180px;
+        "
+    >
+
+        <div class="feature-icon">
+            ◇
+        </div>
+
+        <span class="section-kicker">
+            WAITING FOR ANALYSIS
+        </span>
+
+        <h3>
+            No evidence to display yet
+        </h3>
+
+        <p>
+            Analyze a healthcare AI response first.
+            MEDTRUST will show the trusted sources,
+            relevance scores, and evidence used for
+            verification here.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         EVIDENCE CONTENT
+         ===================================================== -->
+
+    <div
+        id="evidenceContent"
+        style="display:none;"
+    >
+
+        <!-- Evidence overview -->
+
+        <div
+            class="result-summary-grid"
+            style="margin-bottom:18px;"
+        >
+
+            <div class="result-summary-card">
+
+                <span>
+                    Claims Reviewed
+                </span>
+
+                <strong
+                    id="evidenceClaimsCount"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-summary-card">
+
+                <span>
+                    Evidence Items
+                </span>
+
+                <strong
+                    id="evidenceItemsCount"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-summary-card">
+
+                <span>
+                    Supported Claims
+                </span>
+
+                <strong
+                    id="evidenceSupportedCount"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-summary-card">
+
+                <span>
+                    Needs Attention
+                </span>
+
+                <strong
+                    id="evidenceAttentionCount"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="result-summary-card">
+
+                <span>
+                    Safety Score
+                </span>
+
+                <strong
+                    id="evidenceSafetyScore"
+                >
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Source list -->
+
+        <div
+            id="evidenceClaimsList"
+            class="claims-list"
+        >
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EVIDENCE VIEWER
+     ========================================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const emptyState =
+        document.getElementById(
+            "evidenceEmpty"
+        );
+
+    const evidenceContent =
+        document.getElementById(
+            "evidenceContent"
+        );
+
+    const claimsList =
+        document.getElementById(
+            "evidenceClaimsList"
+        );
+
+
+    if (
+        !emptyState ||
+        !evidenceContent ||
+        !claimsList
+    ) {
+        return;
+    }
+
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            String(value ?? "");
+
+        return div.innerHTML;
+    }
+
+
+    function score(value) {
+
+        if (
+            value === undefined ||
+            value === null ||
+            value === ""
+        ) {
+            return "—";
+        }
+
+        const number =
+            Number(value);
+
+        if (
+            Number.isNaN(number)
+        ) {
+            return "—";
+        }
+
+        return number.toFixed(2);
+    }
+
+
+    function loadEvidence() {
+
+        const stored =
+            sessionStorage.getItem(
+                "medtrust_last_analysis"
+            );
+
+
+        if (!stored) {
+
+            emptyState.style.display =
+                "block";
+
+            evidenceContent.style.display =
+                "none";
+
+            return;
+        }
+
+
+        let result;
+
+        try {
+
+            result =
+                JSON.parse(stored);
+
+        } catch (error) {
+
+            console.error(
+                "MEDTRUST Evidence Error:",
+                error
+            );
+
+            return;
+        }
+
+
+        const claims =
+            Array.isArray(result.claims)
+                ? result.claims
+                : [];
+
+
+        let evidenceCount = 0;
+
+
+        claims.forEach(
+            claim => {
+
+                const evidence =
+                    Array.isArray(
+                        claim.evidence
+                    )
+                        ? claim.evidence
+                        : [];
+
+                evidenceCount +=
+                    evidence.length;
+
+            }
+        );
+
+
+        const attention =
+            Number(
+                result.uncertain_claims ||
+                0
+            ) +
+            Number(
+                result.contradicted_claims ||
+                0
+            );
+
+
+        document.getElementById(
+            "evidenceClaimsCount"
+        ).textContent =
+            result.total_claims ?? claims.length;
+
+
+        document.getElementById(
+            "evidenceItemsCount"
+        ).textContent =
+            evidenceCount;
+
+
+        document.getElementById(
+            "evidenceSupportedCount"
+        ).textContent =
+            result.supported_claims ?? 0;
+
+
+        document.getElementById(
+            "evidenceAttentionCount"
+        ).textContent =
+            attention;
+
+
+        document.getElementById(
+            "evidenceSafetyScore"
+        ).textContent =
+            `${result.safety_score ?? "—"}/100`;
+
+
+        claimsList.innerHTML = "";
+
+
+        claims.forEach(
+            (claim, index) => {
+
+                const evidence =
+                    Array.isArray(
+                        claim.evidence
+                    )
+                        ? claim.evidence
+                        : [];
+
+
+                const verification =
+                    claim.verification ||
+                    {};
+
+
+                const risk =
+                    claim.risk ||
+                    {};
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "claim-result-card";
+
+
+                const status =
+                    verification.status ||
+                    "UNCERTAIN";
+
+
+                let evidenceHtml = "";
+
+
+                if (
+                    evidence.length === 0
+                ) {
+
+                    evidenceHtml = `
+
+                        <div
+                            class="mitigation-box"
+                        >
+
+                            <div
+                                class="mitigation-label"
+                            >
+                                Evidence Status
+                            </div>
+
+                            <strong>
+                                Insufficient Evidence
+                            </strong>
+
+                            <p>
+                                MEDTRUST could not find
+                                sufficiently relevant trusted
+                                evidence for this claim.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    evidence.forEach(
+                        item => {
+
+                            evidenceHtml += `
+
+                                <div
+                                    class="evidence-item"
+                                >
+
+                                    <div
+                                        class="evidence-source-row"
+                                    >
+
+                                        <strong>
+                                            ${escapeHtml(
+                                                item.source ||
+                                                "Medical Source"
+                                            )}
+                                        </strong>
+
+
+                                        ${
+                                            item.strength
+                                                ? `
+                                                    <span
+                                                        class="evidence-strength"
+                                                    >
+                                                        ${escapeHtml(
+                                                            item.strength
+                                                        )}
+                                                    </span>
+                                                `
+                                                : ""
+                                        }
+
+                                    </div>
+
+
+                                    ${
+                                        item.topic
+                                            ? `
+                                                <div
+                                                    class="evidence-topic"
+                                                >
+                                                    ${escapeHtml(
+                                                        item.topic
+                                                    )}
+                                                </div>
+                                            `
+                                            : ""
+                                    }
+
+
+                                    <p>
+
+                                        ${escapeHtml(
+                                            item.evidence ||
+                                            ""
+                                        )}
+
+                                    </p>
+
+
+                                    <div
+                                        class="evidence-metrics"
+                                    >
+
+                                        <span>
+                                            Semantic
+
+                                            <strong>
+                                                ${score(
+                                                    item.semantic_score
+                                                )}
+                                            </strong>
+                                        </span>
+
+
+                                        <span>
+                                            Keyword
+
+                                            <strong>
+                                                ${score(
+                                                    item.keyword_score
+                                                )}
+                                            </strong>
+                                        </span>
+
+
+                                        <span>
+                                            Relevance
+
+                                            <strong>
+                                                ${score(
+                                                    item.relevance_score ??
+                                                    item.combined_score ??
+                                                    item.score
+                                                )}
+                                            </strong>
+                                        </span>
+
+                                    </div>
+
+
+                                    ${
+                                        item.source_type
+                                            ? `
+                                                <div
+                                                    class="evidence-source-type"
+                                                >
+                                                    Source type:
+                                                    ${escapeHtml(
+                                                        item.source_type
+                                                    )}
+                                                </div>
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+                }
+
+
+                card.innerHTML = `
+
+                    <div
+                        class="claim-card-top"
+                    >
+
+                        <div
+                            class="claim-number"
+                        >
+                            Claim ${index + 1}
+                        </div>
+
+
+                        <div
+                            class="claim-badges"
+                        >
+
+                            <span
+                                class="claim-status ${
+                                    status === "SUPPORTED"
+                                        ? "status-supported"
+                                        : status === "CONTRADICTED"
+                                            ? "status-contradicted"
+                                            : "status-uncertain"
+                                }"
+                            >
+                                ${escapeHtml(
+                                    status
+                                )}
+                            </span>
+
+
+                            <span
+                                class="claim-risk ${
+                                    String(
+                                        risk.risk_level ||
+                                        ""
+                                    ).toLowerCase() === "high"
+                                        ? "risk-high"
+                                        : String(
+                                            risk.risk_level ||
+                                            ""
+                                        ).toLowerCase() === "critical"
+                                            ? "risk-critical"
+                                            : String(
+                                                risk.risk_level ||
+                                                ""
+                                            ).toLowerCase() === "moderate"
+                                                ? "risk-moderate"
+                                                : "risk-low"
+                                }"
+                            >
+                                ${escapeHtml(
+                                    risk.risk_level ||
+                                    "LOW"
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="claim-text"
+                    >
+                        ${escapeHtml(
+                            claim.claim ||
+                            ""
+                        )}
+                    </div>
+
+
+                    <div
+                        class="claim-reason"
+                    >
+
+                        <strong>
+                            Verification
+                        </strong>
+
+                        <p>
+                            ${escapeHtml(
+                                verification.reason ||
+                                "No additional verification explanation available."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="evidence-box"
+                    >
+
+                        <div
+                            class="evidence-title"
+                        >
+                            ◈ Trusted Evidence
+                        </div>
+
+                        ${evidenceHtml}
+
+                    </div>
+
+                `;
+
+
+                claimsList.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        emptyState.style.display =
+            "none";
+
+        evidenceContent.style.display =
+            "block";
+    }
+
+
+    loadEvidence();
+
+
+    /*
+     * Re-check whenever the user returns to
+     * the Evidence section.
+     */
+    window.addEventListener(
+        "storage",
+        loadEvidence
+    );
+
+});
+</script>
+
+
+        <!-- ================= LEARNING ================= -->
+
+        <section
+            id="learning-section"
+            class="dashboard-section">
+
+            <div class="info-panel">
+
+                <div class="info-panel-icon">
+                    ↗
+                </div>
+
+                <div>
+
+                    <span class="section-kicker">
+                        CONTINUOUS IMPROVEMENT
+                    </span>
+
+                    <h2>
+                        Human-validated learning
+                    </h2>
+
+                    <p>
+                        User feedback can identify possible corrections.
+                        Corrections are treated as candidates first and
+                        become trusted knowledge only after validation.
+                    </p>
+
+                    <div class="learning-flow">
+
+                        <span>Feedback</span>
+
+                        <b>→</b>
+
+                        <span>Review</span>
+
+                        <b>→</b>
+
+                        <span>Validation</span>
+
+                        <b>→</b>
+
+                        <span>Knowledge Base</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HISTORY ================= -->
+
+        <section
+            id="history-section"
+            class="dashboard-section">
+
+            <div class="info-panel">
+
+                <div class="info-panel-icon">
+                    ◷
+                </div>
+
+                <div>
+
+                    <span class="section-kicker">
+                        ANALYSIS HISTORY
+                    </span>
+
+                    <h2>
+                        Review previous analyses
+                    </h2>
+
+                    <p>
+                        Your completed safety analyses are stored so
+                        they can be reviewed later.
+                    </p>
+
+                    <a
+                        href="/history"
+                        class="secondary-button">
+
+                        Open Analysis History →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <section
+            id="settings-section"
+            class="dashboard-section">
+
+            <div class="info-panel">
+
+                <div class="info-panel-icon">
+                    ⚙
+                </div>
+
+                <div>
+
+                    <span class="section-kicker">
+                        SETTINGS
+                    </span>
+
+                    <h2>
+                        MEDTRUST AI settings
+                    </h2>
+
+                    <p>
+                        Demo environment settings and safety preferences
+                        will be available here.
+                    </p>
+
+
+                    <div class="setting-row">
+
+                        <span>
+                            Evidence-first verification
+                        </span>
+
+                        <span class="setting-active">
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <span>
+                            Human review for high-risk claims
+                        </span>
+
+                        <span class="setting-active">
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <strong>MEDTRUST AI</strong>
+
+                <span>
+                    — Trust Before You Trust AI.
+                </span>
+
+            </div>
+
+            <span>
+                Healthcare AI Safety Platform
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="{{ url_for('static', filename='js/analyzer.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/voice.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+
+</body>
+</html>

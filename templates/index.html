@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MEDTRUST AI | Trust Before You Trust AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="landing-page">
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">HEALTHCARE AI SAFETY PLATFORM</p>
+
+                <h1>
+                    Trust Before<br>
+                    <span>You Trust AI.</span>
+                </h1>
+
+                <p class="hero-description">
+                    MEDTRUST AI checks healthcare AI responses for unsupported
+                    claims, missing evidence, uncertainty, and potential hallucinations
+                    before you rely on them.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="/access" class="btn btn-primary">
+                        Start Verification
+                    </a>
+
+                    <a href="#how-it-works" class="btn btn-secondary">
+                        How It Works
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="safety-card">
+
+                <div class="card-header">
+                    <span>AI SAFETY ANALYSIS</span>
+                    <span class="status-dot"></span>
+                </div>
+
+                <div class="score-section">
+                    <div class="score">87</div>
+
+                    <div>
+                        <p class="score-label">Safety Score</p>
+                        <p class="score-status">Generally Supported</p>
+                    </div>
+                </div>
+
+                <div class="claim">
+                    <span class="claim-status verified">✓</span>
+                    <div>
+                        <strong>Claim supported</strong>
+                        <p>Evidence found</p>
+                    </div>
+                </div>
+
+                <div class="claim">
+                    <span class="claim-status uncertain">?</span>
+                    <div>
+                        <strong>Needs verification</strong>
+                        <p>Evidence is limited</p>
+                    </div>
+                </div>
+
+                <div class="claim">
+                    <span class="claim-status warning">!</span>
+                    <div>
+                        <strong>Potential hallucination</strong>
+                        <p>Review recommended</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section id="how-it-works" class="process-section">
+
+            <p class="eyebrow">THE MEDTRUST APPROACH</p>
+
+            <h2>Detect. Verify. Mitigate.</h2>
+
+            <div class="process-grid">
+
+                <div class="process-card">
+                    <span>01</span>
+                    <h3>Detect</h3>
+                    <p>
+                        Break an AI-generated healthcare response into
+                        individual claims that can be checked.
+                    </p>
+                </div>
+
+                <div class="process-card">
+                    <span>02</span>
+                    <h3>Verify</h3>
+                    <p>
+                        Compare claims against available evidence and
+                        trusted medical knowledge.
+                    </p>
+                </div>
+
+                <div class="process-card">
+                    <span>03</span>
+                    <h3>Mitigate</h3>
+                    <p>
+                        Provide evidence-backed corrections, uncertainty
+                        warnings, and human review when needed.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

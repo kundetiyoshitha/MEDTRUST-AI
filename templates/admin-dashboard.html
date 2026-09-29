@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MEDTRUST AI | Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            background: #f7f3ea;
+            color: #101820;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #101820;
+            color: white;
+            padding: 28px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            padding: 0 14px;
+            margin-bottom: 42px;
+        }
+
+        .brand span {
+            color: #9b87d4;
+        }
+
+        .nav-label {
+            color: #7f8992;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 0 14px;
+            margin-bottom: 12px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav a {
+            color: #aeb7be;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.06);
+            color: white;
+        }
+
+        .nav a.active {
+            background: rgba(155,135,212,0.14);
+            color: #9b87d4;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .logout {
+            color: #aeb7be;
+            text-decoration: none;
+            display: block;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,0.06);
+            color: white;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 76px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(16,24,32,0.08);
+            background: rgba(247,243,234,0.9);
+        }
+
+        .topbar-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 13px;
+            color: #68727c;
+        }
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #705fc0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 42px 40px 60px;
+            max-width: 1250px;
+        }
+
+        .eyebrow {
+            color: #705fc0;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            margin: 0 0 10px;
+        }
+
+        .page-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 36px;
+            letter-spacing: -1px;
+            margin: 0 0 10px;
+        }
+
+        .page-description {
+            color: #68727c;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 720px;
+            margin: 0 0 34px;
+        }
+
+        /* METRICS */
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .metric {
+            background: white;
+            border: 1px solid rgba(16,24,32,0.08);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: #68727c;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 29px;
+            font-weight: 700;
+        }
+
+        .metric-note {
+            margin-top: 5px;
+            color: #7b858d;
+            font-size: 11px;
+        }
+
+        /* REVIEW CARD */
+
+        .review-card {
+            background: white;
+            border: 1px solid rgba(16,24,32,0.08);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(16,24,32,0.05);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .review-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .view-all {
+            color: #705fc0;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* FLAGGED CLAIM */
+
+        .flagged-item {
+            border: 1px solid #ece8e1;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .flagged-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .claim-type {
+            font-size: 10px;
+            font-weight: 700;
+            color: #a45151;
+            letter-spacing: 0.8px;
+        }
+
+        .risk-badge {
+            background: #f8e5e5;
+            color: #a45151;
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .claim-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 10px;
+        }
+
+        .evidence-text {
+            color: #68727c;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .review-btn {
+            border: 1px solid #dfe3e5;
+            background: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .review-btn:hover {
+            border-color: #705fc0;
+            color: #705fc0;
+        }
+
+        .review-btn.primary {
+            background: #705fc0;
+            color: white;
+            border-color: #705fc0;
+        }
+
+        /* LEARNING */
+
+        .learning-card {
+            margin-top: 28px;
+            background: #101820;
+            color: white;
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .learning-card .eyebrow {
+            color: #9b87d4;
+        }
+
+        .learning-card h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 22px;
+            margin: 0 0 10px;
+        }
+
+        .learning-card p {
+            color: #aeb7be;
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0;
+        }
+
+        .learning-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+
+        .learning-step {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 9px;
+            padding: 9px 12px;
+            font-size: 11px;
+        }
+
+        .arrow {
+            color: #9b87d4;
+        }
+
+        @media (max-width: 1050px) {
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .dashboard {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .sidebar-bottom {
+                margin-top: 15px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            MED<span>TRUST</span> AI
+        </div>
+
+        <div class="nav-label">
+            SAFETY CONSOLE
+        </div>
+
+        <nav class="nav">
+
+            <a href="/admin-dashboard" class="active">
+                Overview
+            </a>
+
+            <a href="/flagged">
+                Flagged Responses
+            </a>
+
+            <a href="/review">
+                Review Claims
+            </a>
+
+            <a href="/learning">
+                Learning Center
+            </a>
+
+            <a href="/knowledge-base">
+                Knowledge Base
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+        </nav>
+
+        <div class="nav-label" style="margin-top: 30px;">
+            SYSTEM
+        </div>
+
+        <nav class="nav">
+
+            <a href="/settings">
+                System Settings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="/" class="logout">
+                ← Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="topbar-title">
+                Safety Control Center
+            </div>
+
+            <div class="admin-profile">
+
+                <span>Safety Admin</span>
+
+                <div class="avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <p class="eyebrow">
+                ADMIN SAFETY CONSOLE
+            </p>
+
+            <h1 class="page-title">
+                Monitor. Review. Improve.
+            </h1>
+
+            <p class="page-description">
+                Review potentially unsafe AI claims, validate evidence-backed
+                corrections, and strengthen the MEDTRUST knowledge base through
+                human-validated feedback.
+            </p>
+
+
+            <!-- METRICS -->
+
+            <div class="metrics">
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        TOTAL ANALYSES
+                    </div>
+
+                    <div class="metric-value">
+                        248
+                    </div>
+
+                    <div class="metric-note">
+                        Responses checked
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        FLAGGED
+                    </div>
+
+                    <div class="metric-value">
+                        31
+                    </div>
+
+                    <div class="metric-note">
+                        Require attention
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        REVIEWED
+                    </div>
+
+                    <div class="metric-value">
+                        24
+                    </div>
+
+                    <div class="metric-note">
+                        Human validated
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        PENDING
+                    </div>
+
+                    <div class="metric-value">
+                        7
+                    </div>
+
+                    <div class="metric-note">
+                        Awaiting review
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLAGGED RESPONSES -->
+
+            <div class="review-card">
+
+                <div class="review-header">
+
+                    <h2 class="review-title">
+                        Recent Flagged Claims
+                    </h2>
+
+                    <a href="/flagged" class="view-all">
+                        View all →
+                    </a>
+
+                </div>
+
+
+                <div class="flagged-item">
+
+                    <div class="flagged-top">
+
+                        <span class="claim-type">
+                            POTENTIAL HALLUCINATION
+                        </span>
+
+                        <span class="risk-badge">
+                            HIGH RISK
+                        </span>
+
+                    </div>
+
+                    <p class="claim-text">
+                        “This medication is guaranteed to eliminate
+                        the condition within seven days.”
+                    </p>
+
+                    <p class="evidence-text">
+                        ⚠ Absolute treatment claim detected.
+                        Evidence does not support the stated certainty.
+                    </p>
+
+                    <div class="review-actions">
+
+                        <button class="review-btn primary">
+                            Review Claim
+                        </button>
+
+                        <button class="review-btn">
+                            View Evidence
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flagged-item">
+
+                    <div class="flagged-top">
+
+                        <span class="claim-type">
+                            UNSUPPORTED CLAIM
+                        </span>
+
+                        <span class="risk-badge">
+                            MEDIUM RISK
+                        </span>
+
+                    </div>
+
+                    <p class="claim-text">
+                        “Drinking this supplement completely prevents
+                        diabetes.”
+                    </p>
+
+                    <p class="evidence-text">
+                        ⚠ Strong prevention claim detected.
+                        Supporting evidence is insufficient.
+                    </p>
+
+                    <div class="review-actions">
+
+                        <button class="review-btn primary">
+                            Review Claim
+                        </button>
+
+                        <button class="review-btn">
+                            View Evidence
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LEARNING -->
+
+            <div class="learning-card">
+
+                <p class="eyebrow">
+                    EVIDENCE-GUIDED CONTINUOUS IMPROVEMENT
+                </p>
+
+                <h2>
+                    Every validated correction strengthens the system.
+                </h2>
+
+                <p>
+                    MEDTRUST does not automatically trust user feedback.
+                    A correction becomes part of the trusted knowledge base
+                    only after authorized human validation.
+                </p>
+
+                <div class="learning-flow">
+
+                    <div class="learning-step">
+                        AI Claim
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                    <div class="learning-step">
+                        Detection
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                    <div class="learning-step">
+                        Human Review
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                    <div class="learning-step">
+                        Validation
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                    <div class="learning-step">
+                        Trusted Knowledge
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

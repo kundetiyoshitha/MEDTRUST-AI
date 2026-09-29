@@ -1,0 +1,197 @@
+/* =========================================================
+   MEDTRUST AI — SAFE RESPONSIVE OVERRIDES
+   This file only handles smaller screens.
+   Desktop layout stays controlled by dashboard.css.
+   ========================================================= */
+
+
+/* =========================================================
+   TABLETS / SMALL LAPTOPS
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    :root {
+        --sidebar-width: 245px;
+    }
+
+    .dashboard-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-score-card {
+        min-height: 170px;
+    }
+
+    .result-summary-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .detail-summary {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   TABLETS / MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .dashboard-layout {
+        display: block;
+        width: 100%;
+    }
+
+    .sidebar {
+        position: relative !important;
+
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: auto;
+
+        border-right: 0;
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.07);
+
+        overflow: visible;
+    }
+
+    .dashboard-main {
+        width: 100% !important;
+        min-width: 0;
+
+        margin-left: 0 !important;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .nav-item {
+        flex: 0 0 auto;
+    }
+
+    .nav-item.active::before {
+        display: none;
+    }
+
+    .dashboard-topbar {
+        padding: 18px 22px;
+    }
+
+    .dashboard-section {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .dashboard-hero {
+        margin-left: 22px;
+        margin-right: 22px;
+
+        padding: 28px;
+    }
+
+    .history-page,
+    .detail-page {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .result-summary-grid,
+    .detail-summary {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .history-main {
+        grid-template-columns: 1fr;
+    }
+
+    .history-stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .detail-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-footer {
+        padding-left: 22px;
+        padding-right: 22px;
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   PHONES
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .dashboard-topbar {
+        align-items: flex-start;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .dashboard-hero h2 {
+        font-size: 34px;
+    }
+
+    .hero-process {
+        flex-wrap: wrap;
+    }
+
+    .process-line {
+        display: none;
+    }
+
+    .analyzer-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-tools {
+        width: 100%;
+    }
+
+    .primary-button {
+        width: 100%;
+    }
+
+    .result-summary-grid,
+    .detail-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .history-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}

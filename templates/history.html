@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Analysis History | MEDTRUST AI</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/responsive.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="dashboard-layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                M
+            </div>
+
+            <div>
+
+                <h2>
+                    MEDTRUST
+                </h2>
+
+                <span>
+                    AI SAFETY
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="/user-dashboard"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#analyzer-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">◉</span>
+                <span>Analyze Response</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#evidence-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">◇</span>
+                <span>Evidence</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#learning-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">↗</span>
+                <span>Learning</span>
+            </a>
+
+
+            <a
+                href="/history"
+                class="nav-item active"
+            >
+                <span class="nav-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="/user-dashboard#settings-section"
+                class="nav-item"
+            >
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Safety Engine
+                    </strong>
+
+                    <small>
+                        Online
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="/access"
+                class="logout-link"
+            >
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    MEDTRUST AI
+                </p>
+
+                <h1>
+                    Analysis History
+                </h1>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    U
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Demo User
+                    </strong>
+
+                    <span>
+                        Healthcare AI User
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             HISTORY
+             ================================================= -->
+
+        <section class="history-page">
+
+
+            <div class="history-header">
+
+                <h1>
+                    Review previous analyses
+                </h1>
+
+                <p>
+                    Your completed healthcare AI safety
+                    analyses are stored here so they can
+                    be reviewed later.
+                </p>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="history-stats">
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                        id="totalAnalyses"
+                    >
+                        0
+                    </span>
+
+                    <span class="history-stat-label">
+                        Total Analyses
+                    </span>
+
+                </div>
+
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                        id="averageScore"
+                    >
+                        —
+                    </span>
+
+                    <span class="history-stat-label">
+                        Average Safety Score
+                    </span>
+
+                </div>
+
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                        id="attentionCount"
+                    >
+                        0
+                    </span>
+
+                    <span class="history-stat-label">
+                        Needs Attention
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- HISTORY LIST -->
+
+            <div class="history-container">
+
+                <div class="history-header">
+
+                    <h2>
+                        Previous Analyses
+                    </h2>
+
+                    <p>
+                        Your latest verification results appear first.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="historyError"
+                    class="history-error"
+                    style="display:none;"
+                >
+                    Unable to load analysis history.
+                </div>
+
+
+                <div
+                    id="historyLoading"
+                    class="history-loading"
+                >
+                    Loading analysis history...
+                </div>
+
+
+                <div
+                    id="historyEmpty"
+                    class="history-empty"
+                    style="display:none;"
+                >
+
+                    <h3>
+                        No analyses yet
+                    </h3>
+
+                    <p>
+                        Analyze a healthcare AI response
+                        to see your results here.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="historyList"
+                    class="history-container"
+                    style="display:none;"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <div>
+
+                <strong>
+                    MEDTRUST AI
+                </strong>
+
+                <span>
+                    — Trust Before You Trust AI.
+                </span>
+
+            </div>
+
+            <span>
+                Healthcare AI Safety Platform
+            </span>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+async function loadHistory() {
+
+    const loading =
+        document.getElementById(
+            "historyLoading"
+        );
+
+    const empty =
+        document.getElementById(
+            "historyEmpty"
+        );
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "historyError"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/history",
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `History request failed (${response.status})`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Could not load history"
+            );
+
+        }
+
+
+        const history =
+            Array.isArray(data.history)
+                ? data.history
+                : [];
+
+
+        loading.style.display =
+            "none";
+
+        errorBox.style.display =
+            "none";
+
+
+        updateSummary(history);
+
+
+        if (history.length === 0) {
+
+            empty.style.display =
+                "block";
+
+            list.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        list.style.display =
+            "flex";
+
+        list.innerHTML =
+            "";
+
+
+        history.forEach(
+            analysis => {
+
+                list.appendChild(
+                    createHistoryCard(
+                        analysis
+                    )
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "MEDTRUST History Error:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+        list.style.display =
+            "none";
+
+        empty.style.display =
+            "none";
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+}
+
+
+// ============================================================
+// SUMMARY
+// ============================================================
+
+function updateSummary(history) {
+
+    const total =
+        history.length;
+
+
+    document.getElementById(
+        "totalAnalyses"
+    ).textContent =
+        total;
+
+
+    if (!total) {
+
+        document.getElementById(
+            "averageScore"
+        ).textContent =
+            "—";
+
+        document.getElementById(
+            "attentionCount"
+        ).textContent =
+            "0";
+
+        return;
+
+    }
+
+
+    let scoreTotal = 0;
+    let scoreCount = 0;
+    let attention = 0;
+
+
+    history.forEach(
+        analysis => {
+
+            if (
+                analysis.safety_score !== null &&
+                analysis.safety_score !== undefined
+            ) {
+
+                const score =
+                    Number(
+                        analysis.safety_score
+                    );
+
+                if (!Number.isNaN(score)) {
+
+                    scoreTotal +=
+                        score;
+
+                    scoreCount++;
+
+                }
+
+            }
+
+
+            const status =
+                String(
+                    analysis.overall_status ||
+                    ""
+                ).toUpperCase();
+
+
+            if (
+                status.includes("RISK") ||
+                status.includes("HALLUCINATION") ||
+                status.includes("REVIEW") ||
+                status.includes("CRITICAL")
+            ) {
+
+                attention++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "averageScore"
+    ).textContent =
+        scoreCount
+            ? Math.round(
+                scoreTotal /
+                scoreCount
+            ) + "/100"
+            : "—";
+
+
+    document.getElementById(
+        "attentionCount"
+    ).textContent =
+        attention;
+
+}
+
+
+// ============================================================
+// HISTORY CARD
+// ============================================================
+
+function createHistoryCard(analysis) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "history-card";
+
+
+    const status =
+        String(
+            analysis.overall_status ||
+            "UNKNOWN"
+        );
+
+
+    const upperStatus =
+        status.toUpperCase();
+
+
+    let statusClass =
+        "status-review";
+
+
+    if (
+        upperStatus ===
+        "SUPPORTED"
+    ) {
+
+        statusClass =
+            "status-supported";
+
+    } else if (
+        upperStatus.includes("RISK") ||
+        upperStatus.includes("HALLUCINATION") ||
+        upperStatus.includes("CRITICAL")
+    ) {
+
+        statusClass =
+            "status-risk";
+
+    }
+
+
+    const needsAttention =
+        Number(
+            analysis.uncertain_claims ||
+            0
+        ) +
+        Number(
+            analysis.contradicted_claims ||
+            0
+        );
+
+
+    const highRisk =
+        Number(
+            analysis.high_risk_claims ||
+            0
+        ) +
+        Number(
+            analysis.critical_claims ||
+            0
+        );
+
+
+    const safetyScore =
+        analysis.safety_score !== null &&
+        analysis.safety_score !== undefined
+            ? `${analysis.safety_score}/100`
+            : "—";
+
+
+    card.innerHTML = `
+
+        <div class="history-top">
+
+            <div>
+
+                <div class="history-id">
+                    ANALYSIS #${escapeHtml(
+                        analysis.analysis_id
+                    )}
+                </div>
+
+                <div class="history-date">
+                    ${escapeHtml(
+                        formatDate(
+                            analysis.created_at
+                        )
+                    )}
+                </div>
+
+            </div>
+
+
+            <span class="status-badge ${statusClass}">
+                ${escapeHtml(status)}
+            </span>
+
+        </div>
+
+
+        <div class="history-main">
+
+            <div class="history-score">
+
+                <div class="history-score-number">
+                    ${escapeHtml(
+                        safetyScore
+                    )}
+                </div>
+
+                <div class="history-score-label">
+                    SAFETY SCORE
+                </div>
+
+            </div>
+
+
+            <div class="history-stats">
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                    >
+                        ${Number(
+                            analysis.total_claims ||
+                            0
+                        )}
+                    </span>
+
+                    <span
+                        class="history-stat-label"
+                    >
+                        Claims
+                    </span>
+
+                </div>
+
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                    >
+                        ${Number(
+                            analysis.supported_claims ||
+                            0
+                        )}
+                    </span>
+
+                    <span
+                        class="history-stat-label"
+                    >
+                        Supported
+                    </span>
+
+                </div>
+
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                    >
+                        ${needsAttention}
+                    </span>
+
+                    <span
+                        class="history-stat-label"
+                    >
+                        Needs Attention
+                    </span>
+
+                </div>
+
+
+                <div class="history-stat">
+
+                    <span
+                        class="history-stat-number"
+                    >
+                        ${highRisk}
+                    </span>
+
+                    <span
+                        class="history-stat-label"
+                    >
+                        High Risk
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="history-action">
+
+            <a
+                href="/history/${analysis.analysis_id}"
+                class="view-analysis-btn"
+            >
+                View Analysis →
+            </a>
+
+        </div>
+
+    `;
+
+
+    return card;
+}
+
+
+// ============================================================
+// DATE
+// ============================================================
+
+function formatDate(value) {
+
+    if (!value) {
+        return "Date unavailable";
+    }
+
+
+    const normalized =
+        String(value)
+            .replace(" ", "T");
+
+
+    const date =
+        new Date(normalized);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleString(
+        undefined,
+        {
+            dateStyle: "medium",
+            timeStyle: "short"
+        }
+    );
+
+}
+
+
+// ============================================================
+// HTML ESCAPE
+// ============================================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(
+            value ?? ""
+        );
+
+    return div.innerHTML;
+
+}
+
+
+// ============================================================
+// START
+// ============================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadHistory
+);
+
+</script>
+
+</body>
+</html>
